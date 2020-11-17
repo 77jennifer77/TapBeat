@@ -1,4 +1,4 @@
-package ryan.d.gametut
+package com.mobilewebdev.android.tapbeat
 
 import android.content.res.Resources
 import android.graphics.Bitmap

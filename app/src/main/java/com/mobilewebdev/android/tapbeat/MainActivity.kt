@@ -1,4 +1,4 @@
-package ryan.d.gametut
+package com.mobilewebdev.android.tapbeat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
