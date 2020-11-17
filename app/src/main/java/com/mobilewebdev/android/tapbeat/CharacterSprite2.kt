@@ -45,10 +45,11 @@ class CharacterSprite2(private val image: Bitmap, dx0: Float, dy0: Float): Sprit
     override fun doClick(px: Int, py: Int): Boolean {
         if(position.left < px && position.right > px) {
             if(position.bottom > py && py > position.top) {
-                Log.d("TAG", "Clicked blue sprite")
+                Log.d("TAG", "RETURNING TRUE")
+                return true
             }
         }
-        return true
+        return false
     }
 
 

@@ -12,7 +12,7 @@ class CharacterSprite(private val image: Bitmap, dx0: Float, dy0: Float): Sprite
     private var screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private var playerX = screenWidth * 0f
     private var playerY = screenHeight * 0.01f
-    private var xVelocity = 0f
+    //private var xVelocity = 0f
     private var yVelocity = 7.5f
     var position = RectF(
         playerX+80,
@@ -30,14 +30,14 @@ class CharacterSprite(private val image: Bitmap, dx0: Float, dy0: Float): Sprite
     }
 
     override fun update() {
-        playerX += xVelocity
+        //playerX += xVelocity
         playerY += yVelocity
-        position.left += xVelocity
-        position.right += xVelocity
+        //position.left += xVelocity
+        //position.right += xVelocity
         position.top += yVelocity
         position.bottom += yVelocity
         if(playerX > screenWidth - image.width || playerX < 0) {
-            xVelocity = -xVelocity
+            //xVelocity = -xVelocity
         }
         if(playerY > screenHeight - image.height) {
             yVelocity = yVelocity
@@ -47,9 +47,10 @@ class CharacterSprite(private val image: Bitmap, dx0: Float, dy0: Float): Sprite
     override fun doClick(px: Int, py: Int): Boolean {
         if(position.left < px && position.right > px) {
             if(position.bottom > py && py > position.top) {
-                Log.d("TAG", "Clicked purple sprite")
+                Log.d("TAG", "RETURNING TRUE")
+                return true
             }
         }
-        return true
+        return false
     }
 }

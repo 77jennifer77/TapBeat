@@ -3,6 +3,8 @@ package com.mobilewebdev.android.tapbeat
 import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.delay
@@ -10,6 +12,8 @@ import kotlinx.coroutines.delay
 class GameViewModel: ViewModel() {
     private val screenWidth = Resources.getSystem().displayMetrics.widthPixels.toFloat()
     private val screenHeight = Resources.getSystem().displayMetrics.heightPixels.toFloat()
+    private val paint: Paint = Paint()
+    private var score = 0
 
     //val maxNotes = 7
     private val sprites = mutableListOf<Sprite>()
@@ -33,6 +37,8 @@ class GameViewModel: ViewModel() {
         for (item in actionItems) {
             if (item.doClick(x, y)) {
                 any = true
+                score += 100
+                // TODO: MAKE NOTES ONLY CLICKABLE ONCE
             }
         }
         return any
@@ -41,6 +47,9 @@ class GameViewModel: ViewModel() {
     fun draw(canvas: Canvas) {
         for (sprite in sprites) {
             sprite.draw(canvas)
+            paint.color = Color.rgb(255,255,255)
+            paint.textSize = 70f
+            canvas.drawText("Score: $score", 10f, 75f, paint)
         }
     }
 

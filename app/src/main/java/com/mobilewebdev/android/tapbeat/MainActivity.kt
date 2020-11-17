@@ -9,6 +9,9 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var player: MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -20,8 +23,8 @@ class MainActivity : ComponentActivity() {
 
         setContentView(GameView(this).attachViewModel(gameViewModel))
 
-        val player = MediaPlayer.create(this, R.raw.song)
-        player.setLooping(true);
+        player = MediaPlayer.create(this, R.raw.song)
+        player.setLooping(false);
         player.start();
     }
 }

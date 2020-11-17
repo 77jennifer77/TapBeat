@@ -53,9 +53,10 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
             val x = event.x.toInt()
             val y = event.y.toInt()
             any = gameThread.doClick(x, y)
+            if(any == true){
+                soundPlayer.playSound(SoundPlayer.hitNoteId)
+            }
         }
-        Log.d("TAG", "CLICKING")
-        soundPlayer.playSound(SoundPlayer.hitNoteId)
         return any
     }
 
