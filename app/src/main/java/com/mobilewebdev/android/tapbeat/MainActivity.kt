@@ -1,5 +1,6 @@
 package com.mobilewebdev.android.tapbeat
 
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
@@ -18,5 +19,9 @@ class MainActivity : ComponentActivity() {
         gameViewModel.load(resources)
 
         setContentView(GameView(this).attachViewModel(gameViewModel))
+
+        val player = MediaPlayer.create(this, R.raw.song)
+        player.setLooping(true);
+        player.start();
     }
 }
