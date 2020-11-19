@@ -50,47 +50,46 @@ class GameViewModel: ViewModel() {
     }
 
     fun draw(canvas: Canvas) {
-
         for (sprite in sprites) {
             sprite.draw(canvas)
-            paint.color = Color.rgb(255,255,255)
-            paint.textSize = 70f
-            targetCirclePaint_purple.color = Color.	rgb(201, 82, 255)
-            targetCirclePaint_blue.color = Color.	rgb(0, 172, 255)
-            targetCirclePaint_gold.color = Color.		rgb(244, 186, 52)
-
-
-            targetCirclePaint_purple.setAntiAlias(true);
-            targetCirclePaint_purple.setStrokeWidth(iconImage.width.toFloat()/25);
-            targetCirclePaint_purple.setStyle(Paint.Style.STROKE);
-            targetCirclePaint_purple.setStrokeJoin(Paint.Join.ROUND);
-            targetCirclePaint_purple.setStrokeCap(Paint.Cap.ROUND);
-
-            targetCirclePaint_blue.setAntiAlias(true);
-            targetCirclePaint_blue.setStrokeWidth(iconImage.width.toFloat()/25);
-            targetCirclePaint_blue.setStyle(Paint.Style.STROKE);
-            targetCirclePaint_blue.setStrokeJoin(Paint.Join.ROUND);
-            targetCirclePaint_blue.setStrokeCap(Paint.Cap.ROUND);
-
-            targetCirclePaint_gold.setAntiAlias(true);
-            targetCirclePaint_gold.setStrokeWidth(iconImage.width.toFloat()/25);
-            targetCirclePaint_gold.setStyle(Paint.Style.STROKE);
-            targetCirclePaint_gold.setStrokeJoin(Paint.Join.ROUND);
-            targetCirclePaint_gold.setStrokeCap(Paint.Cap.ROUND);
-
-
-            canvas.drawText("Score: $score", 10f, 75f, paint)
-
-            /*
-            canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.95f,125f, paint)
-            canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.95f,125f, paint)
-            canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.95f,125f, paint)
-             */
-            
-            canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.93f, iconImage.width.toFloat()/4, targetCirclePaint_purple)
-            canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.93f,iconImage.width.toFloat()/4, targetCirclePaint_blue)
-            canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.93f,iconImage.width.toFloat()/4, targetCirclePaint_gold)
         }
+        paint.color = Color.rgb(255,255,255)
+        paint.textSize = 70f
+        targetCirclePaint_purple.color = Color.rgb(201, 82, 255)
+        targetCirclePaint_blue.color = Color.rgb(0, 172, 255)
+        targetCirclePaint_gold.color = Color.rgb(244, 186, 52)
+
+
+        targetCirclePaint_purple.setAntiAlias(true);
+        targetCirclePaint_purple.setStrokeWidth(iconImage.width.toFloat()/25);
+        targetCirclePaint_purple.setStyle(Paint.Style.STROKE);
+        targetCirclePaint_purple.setStrokeJoin(Paint.Join.ROUND);
+        targetCirclePaint_purple.setStrokeCap(Paint.Cap.ROUND);
+
+        targetCirclePaint_blue.setAntiAlias(true);
+        targetCirclePaint_blue.setStrokeWidth(iconImage.width.toFloat()/25);
+        targetCirclePaint_blue.setStyle(Paint.Style.STROKE);
+        targetCirclePaint_blue.setStrokeJoin(Paint.Join.ROUND);
+        targetCirclePaint_blue.setStrokeCap(Paint.Cap.ROUND);
+
+        targetCirclePaint_gold.setAntiAlias(true);
+        targetCirclePaint_gold.setStrokeWidth(iconImage.width.toFloat()/25);
+        targetCirclePaint_gold.setStyle(Paint.Style.STROKE);
+        targetCirclePaint_gold.setStrokeJoin(Paint.Join.ROUND);
+        targetCirclePaint_gold.setStrokeCap(Paint.Cap.ROUND);
+
+
+        canvas.drawText("Score: $score", 10f, 75f, paint)
+
+        /*
+        canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.95f,125f, paint)
+        canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.95f,125f, paint)
+        canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.95f,125f, paint)
+         */
+
+        canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.93f, iconImage.width.toFloat()/4, targetCirclePaint_purple)
+        canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.93f,iconImage.width.toFloat()/4, targetCirclePaint_blue)
+        canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.93f,iconImage.width.toFloat()/4, targetCirclePaint_gold)
     }
 
     fun update() {
