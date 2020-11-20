@@ -15,8 +15,8 @@ class GameViewModel: ViewModel() {
     private val targetCirclePaint_blue = Paint()
     private var score = 0
     private var streak = 0
-    //private var streaking = true
     private lateinit var note: Bitmap
+    private lateinit var blackCircle: Bitmap
 
 
     private val sprites = mutableListOf<Sprite>()
@@ -30,27 +30,30 @@ class GameViewModel: ViewModel() {
             sprites.add(VectorSprite(this))
 
             // Creating Notes
+            blackCircle = BitmapFactory.decodeResource(resources, R.drawable.blackcircle)
+
             note = BitmapFactory.decodeResource(resources, R.drawable.purplenote)
-            for(x in 2..4) {
-                var characterSprite = CharacterSprite(note, 5.0f, 800*x)
+            for(x in 1..3) {
+                var characterSprite = CharacterSprite(note, 5.0f, 1200*x, blackCircle)
                 sprites.add(characterSprite)
                 updatables.add(characterSprite)
                 actionItems.add(characterSprite)
             }
             note = BitmapFactory.decodeResource(resources, R.drawable.bluenote)
-            for(x in 2..4) {
-                var characterSprite = CharacterSprite2(note, 5.0f, 500*x)
+            for(x in 1..3) {
+                var characterSprite = CharacterSprite2(note, 5.0f, 600*x, blackCircle)
                 sprites.add(characterSprite)
                 updatables.add(characterSprite)
                 actionItems.add(characterSprite)
             }
             note = BitmapFactory.decodeResource(resources, R.drawable.goldnote)
-            for(x in 2..4) {
-                var characterSprite = CharacterSprite3(note, 5.0f, 1000*x)
+            for(x in 1..3) {
+                var characterSprite = CharacterSprite3(note, 5.0f, 800*x, blackCircle)
                 sprites.add(characterSprite)
                 updatables.add(characterSprite)
                 actionItems.add(characterSprite)
             }
+
             loaded = true
         }
     }
@@ -62,16 +65,13 @@ class GameViewModel: ViewModel() {
                 any = true
                 streak += 1
                 score += 100
+
             }
         }
         return any
     }
 
     fun draw(canvas: Canvas) {
-        for (sprite in sprites) {
-            sprite.draw(canvas)
-        }
-
         paint.color = Color.rgb(255,255,255)
         paint.textSize = 75f
         targetCirclePaint_purple.color = Color.rgb(201, 82, 255)
@@ -102,9 +102,12 @@ class GameViewModel: ViewModel() {
         canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.95f,125f, paint)
         canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.95f,125f, paint)
          */
+
+        for (sprite in sprites) {
+            sprite.draw(canvas)
+        }
         canvas.drawText("Score: $score", 6*screenWidth/10, 75f, paint)
         canvas.drawText("Streak: $streak", screenWidth/10, 75f, paint)
-
         canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.93f, note.width.toFloat()/4, targetCirclePaint_purple)
         canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.93f,note.width.toFloat()/4, targetCirclePaint_blue)
         canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.93f,note.width.toFloat()/4, targetCirclePaint_gold)

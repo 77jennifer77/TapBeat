@@ -5,13 +5,14 @@ import android.graphics.Canvas
 import android.graphics.RectF
 import android.util.Log
 
-class CharacterSprite2(private var image: Bitmap, dy0: Float, private val y: Int): Sprite, Updatable, ActionItem {
+class CharacterSprite2(private val image: Bitmap, dy0: Float, private val y: Int, private val invisible: Bitmap): Sprite, Updatable, ActionItem {
     private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private var screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private var playerX = screenWidth * 0.3f
     private var playerY = screenHeight * 0.01f - y
     private var yVelocity = 7.5f
     private var clicked = false
+    private var note = image
     private var position = RectF(
         playerX+80,
         playerY+80,
@@ -20,7 +21,7 @@ class CharacterSprite2(private var image: Bitmap, dy0: Float, private val y: Int
     )
 
     override fun draw(canvas: Canvas) {
-        canvas.drawBitmap(image, playerX, playerY, null)
+        canvas.drawBitmap(note, playerX, playerY, null)
     }
 
     override fun clicked(): Boolean {
@@ -47,6 +48,7 @@ class CharacterSprite2(private var image: Bitmap, dy0: Float, private val y: Int
         playerY = screenHeight * 0.01f - y
         position.top = playerY+80
         position.bottom = playerY+image.height-80
+        note = image
         clicked = false
     }
 
@@ -54,6 +56,7 @@ class CharacterSprite2(private var image: Bitmap, dy0: Float, private val y: Int
         if(position.left < px && position.right > px && !clicked) {
             if(position.bottom > py && py > position.top) {
                 Log.d("TAG", "BLUE")
+                note = invisible
                 clicked = true
                 return true
             }
