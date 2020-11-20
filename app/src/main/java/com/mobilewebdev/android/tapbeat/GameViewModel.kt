@@ -15,6 +15,9 @@ class GameViewModel: ViewModel() {
     private val targetCirclePaint_blue = Paint()
     private var score = 0
     private lateinit var iconImage: Bitmap
+    private lateinit var note: Bitmap
+    private lateinit var blank: Bitmap
+
 
     //val maxNotes = 7
     private val sprites = mutableListOf<Sprite>()
@@ -22,16 +25,38 @@ class GameViewModel: ViewModel() {
     private val updatables = mutableListOf<Updatable>()
 
     private var loaded = false
-
-
-
     fun load(resources: Resources?) {
         if(!loaded) {
 
-            iconImage = BitmapFactory.decodeResource(resources, R.drawable.purplenote)
-
-            // Triangle Graphic Background
+            // BACKGROUND GRAPHIC DRAWN HERE
             sprites.add(VectorSprite(this))
+
+            blank = BitmapFactory.decodeResource(resources, R.drawable.blank)
+
+            iconImage = BitmapFactory.decodeResource(resources, R.drawable.purplenote)
+            note = BitmapFactory.decodeResource(resources, R.drawable.purplenote)
+            for(x in 0..20) {
+                var characterSprite = CharacterSprite(note, 5.0f, 400*x+(300..500).random())
+                sprites.add(characterSprite)
+                updatables.add(characterSprite)
+                actionItems.add(characterSprite)
+            }
+
+            note = BitmapFactory.decodeResource(resources, R.drawable.bluenote)
+            for(x in 0..20) {
+                var characterSprite = CharacterSprite2(note, 5.0f, 700*x+(200..400).random())
+                sprites.add(characterSprite)
+                updatables.add(characterSprite)
+                actionItems.add(characterSprite)
+            }
+
+            note = BitmapFactory.decodeResource(resources, R.drawable.goldnote)
+            for(x in 0..20) {
+                var characterSprite = CharacterSprite3(note, 5.0f, 500*x+(200..400).random(), blank)
+                sprites.add(characterSprite)
+                updatables.add(characterSprite)
+                actionItems.add(characterSprite)
+            }
 
             loaded = true
         }
@@ -43,7 +68,6 @@ class GameViewModel: ViewModel() {
             if (item.doClick(x, y)) {
                 any = true
                 score += 100
-                // TODO: MAKE NOTES ONLY CLICKABLE ONCE
             }
         }
         return any
@@ -53,6 +77,7 @@ class GameViewModel: ViewModel() {
         for (sprite in sprites) {
             sprite.draw(canvas)
         }
+
         paint.color = Color.rgb(255,255,255)
         paint.textSize = 70f
         targetCirclePaint_purple.color = Color.rgb(201, 82, 255)
@@ -78,14 +103,12 @@ class GameViewModel: ViewModel() {
         targetCirclePaint_gold.setStrokeJoin(Paint.Join.ROUND);
         targetCirclePaint_gold.setStrokeCap(Paint.Cap.ROUND);
 
-
-        canvas.drawText("Score: $score", 10f, 75f, paint)
-
         /*
         canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.95f,125f, paint)
         canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.95f,125f, paint)
         canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.95f,125f, paint)
          */
+        canvas.drawText("Score: $score", 10f, 75f, paint)
 
         canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.93f, iconImage.width.toFloat()/4, targetCirclePaint_purple)
         canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.93f,iconImage.width.toFloat()/4, targetCirclePaint_blue)
@@ -101,16 +124,6 @@ class GameViewModel: ViewModel() {
         y3.step()
         for(updatable in updatables) {
             updatable.update()
-        }
-    }
-
-    fun checkNotes() {
-        for(note in sprites) {
-            if(note.getY() > screenHeight) {
-                sprites.remove(note)
-                actionItems.remove(note as ActionItem)
-                updatables.remove(note as Updatable)
-            }
         }
     }
 
@@ -140,25 +153,4 @@ class GameViewModel: ViewModel() {
         }
     }
 
-    fun newPurpleNote(resources: Resources?) {
-            val image = BitmapFactory.decodeResource(resources, R.drawable.purplenote)
-            var characterSprite = CharacterSprite(image, 1.0f, 5.0f)
-            sprites.add(characterSprite)
-            updatables.add(characterSprite)
-            actionItems.add(characterSprite)
-    }
-    fun newBlueNote(resources: Resources?) {
-            val image2 = BitmapFactory.decodeResource(resources, R.drawable.bluenote)
-            var characterSprite2 = CharacterSprite2(image2, 1.0f, 5.0f)
-            sprites.add(characterSprite2)
-            updatables.add(characterSprite2)
-            actionItems.add(characterSprite2)
-    }
-    fun newGoldNote(resources: Resources?) {
-            val image3 = BitmapFactory.decodeResource(resources, R.drawable.goldnote)
-            var characterSprite3 = CharacterSprite3(image3, 1.0f, 5.0f)
-            sprites.add(characterSprite3)
-            updatables.add(characterSprite3)
-            actionItems.add(characterSprite3)
-    }
 }

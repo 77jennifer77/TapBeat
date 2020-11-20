@@ -45,17 +45,6 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
             val timeMillis = (System.nanoTime() - startTime) / 1000000L
             val waitTime = targetTime - timeMillis
 
-            tick = Random.nextInt(0,200)
-            if(tick == 66) {
-                gameViewModel.newPurpleNote(gameView.resources)
-            }
-            else if(tick == 132) {
-                gameViewModel.newBlueNote(gameView.resources)
-            }
-            else if(tick == 180) {
-                gameViewModel.newGoldNote(gameView.resources)
-            }
-
             if(waitTime > 0L) {
                 try {
                     sleep(waitTime)
@@ -81,6 +70,5 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
 
     fun updateGame() {
         gameViewModel.update()
-        gameViewModel.checkNotes()
     }
 }
