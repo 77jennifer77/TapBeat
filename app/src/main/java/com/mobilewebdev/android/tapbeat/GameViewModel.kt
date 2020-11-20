@@ -14,12 +14,11 @@ class GameViewModel: ViewModel() {
     private val targetCirclePaint_gold = Paint()
     private val targetCirclePaint_blue = Paint()
     private var score = 0
-    private lateinit var iconImage: Bitmap
+    private var streak = 0
+    //private var streaking = true
     private lateinit var note: Bitmap
-    private lateinit var blank: Bitmap
 
 
-    //val maxNotes = 7
     private val sprites = mutableListOf<Sprite>()
     private val actionItems = mutableListOf<ActionItem>()
     private val updatables = mutableListOf<Updatable>()
@@ -27,37 +26,31 @@ class GameViewModel: ViewModel() {
     private var loaded = false
     fun load(resources: Resources?) {
         if(!loaded) {
-
-            // BACKGROUND GRAPHIC DRAWN HERE
+            // Background Visual
             sprites.add(VectorSprite(this))
 
-            blank = BitmapFactory.decodeResource(resources, R.drawable.blank)
-
-            iconImage = BitmapFactory.decodeResource(resources, R.drawable.purplenote)
+            // Creating Notes
             note = BitmapFactory.decodeResource(resources, R.drawable.purplenote)
-            for(x in 0..20) {
-                var characterSprite = CharacterSprite(note, 5.0f, 400*x+(300..500).random())
+            for(x in 2..4) {
+                var characterSprite = CharacterSprite(note, 5.0f, 800*x)
                 sprites.add(characterSprite)
                 updatables.add(characterSprite)
                 actionItems.add(characterSprite)
             }
-
             note = BitmapFactory.decodeResource(resources, R.drawable.bluenote)
-            for(x in 0..20) {
-                var characterSprite = CharacterSprite2(note, 5.0f, 700*x+(200..400).random())
+            for(x in 2..4) {
+                var characterSprite = CharacterSprite2(note, 5.0f, 500*x)
                 sprites.add(characterSprite)
                 updatables.add(characterSprite)
                 actionItems.add(characterSprite)
             }
-
             note = BitmapFactory.decodeResource(resources, R.drawable.goldnote)
-            for(x in 0..20) {
-                var characterSprite = CharacterSprite3(note, 5.0f, 500*x+(200..400).random(), blank)
+            for(x in 2..4) {
+                var characterSprite = CharacterSprite3(note, 5.0f, 1000*x)
                 sprites.add(characterSprite)
                 updatables.add(characterSprite)
                 actionItems.add(characterSprite)
             }
-
             loaded = true
         }
     }
@@ -67,6 +60,7 @@ class GameViewModel: ViewModel() {
         for (item in actionItems) {
             if (item.doClick(x, y)) {
                 any = true
+                streak += 1
                 score += 100
             }
         }
@@ -79,26 +73,26 @@ class GameViewModel: ViewModel() {
         }
 
         paint.color = Color.rgb(255,255,255)
-        paint.textSize = 70f
+        paint.textSize = 75f
         targetCirclePaint_purple.color = Color.rgb(201, 82, 255)
         targetCirclePaint_blue.color = Color.rgb(0, 172, 255)
         targetCirclePaint_gold.color = Color.rgb(244, 186, 52)
 
 
         targetCirclePaint_purple.setAntiAlias(true);
-        targetCirclePaint_purple.setStrokeWidth(iconImage.width.toFloat()/25);
+        targetCirclePaint_purple.setStrokeWidth(note.width.toFloat()/35);
         targetCirclePaint_purple.setStyle(Paint.Style.STROKE);
         targetCirclePaint_purple.setStrokeJoin(Paint.Join.ROUND);
         targetCirclePaint_purple.setStrokeCap(Paint.Cap.ROUND);
 
         targetCirclePaint_blue.setAntiAlias(true);
-        targetCirclePaint_blue.setStrokeWidth(iconImage.width.toFloat()/25);
+        targetCirclePaint_blue.setStrokeWidth(note.width.toFloat()/35);
         targetCirclePaint_blue.setStyle(Paint.Style.STROKE);
         targetCirclePaint_blue.setStrokeJoin(Paint.Join.ROUND);
         targetCirclePaint_blue.setStrokeCap(Paint.Cap.ROUND);
 
         targetCirclePaint_gold.setAntiAlias(true);
-        targetCirclePaint_gold.setStrokeWidth(iconImage.width.toFloat()/25);
+        targetCirclePaint_gold.setStrokeWidth(note.width.toFloat()/35);
         targetCirclePaint_gold.setStyle(Paint.Style.STROKE);
         targetCirclePaint_gold.setStrokeJoin(Paint.Join.ROUND);
         targetCirclePaint_gold.setStrokeCap(Paint.Cap.ROUND);
@@ -108,11 +102,12 @@ class GameViewModel: ViewModel() {
         canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.95f,125f, paint)
         canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.95f,125f, paint)
          */
-        canvas.drawText("Score: $score", 10f, 75f, paint)
+        canvas.drawText("Score: $score", 6*screenWidth/10, 75f, paint)
+        canvas.drawText("Streak: $streak", screenWidth/10, 75f, paint)
 
-        canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.93f, iconImage.width.toFloat()/4, targetCirclePaint_purple)
-        canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.93f,iconImage.width.toFloat()/4, targetCirclePaint_blue)
-        canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.93f,iconImage.width.toFloat()/4, targetCirclePaint_gold)
+        canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.93f, note.width.toFloat()/4, targetCirclePaint_purple)
+        canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.93f,note.width.toFloat()/4, targetCirclePaint_blue)
+        canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.93f,note.width.toFloat()/4, targetCirclePaint_gold)
     }
 
     fun update() {
@@ -124,16 +119,25 @@ class GameViewModel: ViewModel() {
         y3.step()
         for(updatable in updatables) {
             updatable.update()
+            if(updatable.offScreen()) {
+                if (!updatable.clicked()){
+                    streak = 0
+                }
+                updatable.reset()
+            }
         }
     }
 
+
+
+
+    // Logic for background
     val x1 = Coordinate(screenWidth)
     val y1 = Coordinate(screenHeight)
     val x2 = Coordinate(screenWidth)
     val y2 = Coordinate(screenHeight)
     val x3 = Coordinate(screenWidth)
     val y3 = Coordinate(screenHeight)
-
     class Coordinate(private val limit: Float) {
         var value = limit / 2.0f
         private var delta = 0.0f
@@ -152,5 +156,4 @@ class GameViewModel: ViewModel() {
             }
         }
     }
-
 }

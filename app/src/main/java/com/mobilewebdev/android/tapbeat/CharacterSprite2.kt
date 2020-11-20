@@ -5,14 +5,14 @@ import android.graphics.Canvas
 import android.graphics.RectF
 import android.util.Log
 
-class CharacterSprite2(private var image: Bitmap, dy0: Float, y: Int): Sprite, Updatable, ActionItem {
+class CharacterSprite2(private var image: Bitmap, dy0: Float, private val y: Int): Sprite, Updatable, ActionItem {
     private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private var screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private var playerX = screenWidth * 0.3f
     private var playerY = screenHeight * 0.01f - y
     private var yVelocity = 7.5f
     private var clicked = false
-    var position = RectF(
+    private var position = RectF(
         playerX+80,
         playerY+80,
         playerX+image.width-80,
@@ -23,8 +23,8 @@ class CharacterSprite2(private var image: Bitmap, dy0: Float, y: Int): Sprite, U
         canvas.drawBitmap(image, playerX, playerY, null)
     }
 
-    override fun getY(): Float {
-        return playerY
+    override fun clicked(): Boolean {
+        return clicked
     }
 
     override fun update() {
@@ -34,6 +34,20 @@ class CharacterSprite2(private var image: Bitmap, dy0: Float, y: Int): Sprite, U
         if(playerY > screenHeight - image.height) {
             yVelocity = yVelocity
         }
+    }
+
+    override fun offScreen(): Boolean {
+        if(playerY > screenHeight*1.1) {
+            return true
+        }
+        return false
+    }
+
+    override fun reset() {
+        playerY = screenHeight * 0.01f - y
+        position.top = playerY+80
+        position.bottom = playerY+image.height-80
+        clicked = false
     }
 
     override fun doClick(px: Int, py: Int): Boolean {

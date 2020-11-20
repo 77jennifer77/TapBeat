@@ -60,7 +60,6 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
     fun doClick(x: Int, y: Int): Boolean {
         /* Check that User Click is in note click zone*/
         if (y < screenHeight && y > screenHeight*0.9) {
-            Log.d("TAG", "CLICKED (" + x + "," + y + ")")
             return gameViewModel.doClick(x, y)
         }
         else{

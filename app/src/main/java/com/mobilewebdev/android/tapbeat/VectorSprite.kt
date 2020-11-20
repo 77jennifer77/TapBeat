@@ -10,12 +10,10 @@ class VectorSprite(private val gameViewModel: GameViewModel): Sprite {
     private val paint3 = Paint()
 
     init {
-        paint1.color = Color.rgb(255,0, 0)
-        paint2.color = Color.rgb(0,225, 0)
-        paint3.color = Color.rgb(0,0, 255)
+        paint1.color = Color.rgb(200,0, 0)
+        paint2.color = Color.rgb(0,200, 0)
+        paint3.color = Color.rgb(0,0, 200)
     }
-
-    override fun getY(): Float { return -1f }
 
     override fun draw(canvas: Canvas) {
         val x1 = gameViewModel.x1.value
