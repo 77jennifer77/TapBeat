@@ -66,6 +66,12 @@ class GameViewModel: ViewModel() {
                 score += 100
             }
         }
+        if(streak % 5 == 0) {
+            var temp = StreakSprite(screenWidth / 3, screenHeight / 3, streak)
+            sprites.add(temp)
+            updatables.add(temp)
+            Log.d("TAG", "sprites: ${sprites.size}")
+        }
         return any
     }
 

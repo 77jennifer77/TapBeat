@@ -55,7 +55,6 @@ class CharacterSprite(private val image: Bitmap, dy0: Float, private val y: Int)
     override fun doClick(px: Int, py: Int): Boolean {
         if(position.left < px && position.right > px && !clicked) {
             if(position.bottom > py && py > position.top) {
-                Log.d("TAG", "PURPLE")
                 playerY += 500
                 position.top += 500
                 position.bottom += 500
