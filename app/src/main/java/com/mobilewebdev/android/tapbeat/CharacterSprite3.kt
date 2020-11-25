@@ -3,7 +3,7 @@ import android.content.res.Resources
 import android.graphics.*
 import android.util.Log
 
-class CharacterSprite3(private val image: Bitmap, dy0: Float, private val y: Int, private val invisible: Bitmap): Sprite, Updatable, ActionItem {
+class CharacterSprite3(private val image: Bitmap, dy0: Float, private val y: Int): Sprite, Updatable, ActionItem {
     private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private var screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private var playerX = screenWidth * 0.6f
@@ -46,7 +46,6 @@ class CharacterSprite3(private val image: Bitmap, dy0: Float, private val y: Int
         playerY = screenHeight * 0.01f - y
         position.top = playerY+80
         position.bottom = playerY+image.height-80
-        note = image
         clicked = false
     }
 
@@ -55,7 +54,9 @@ class CharacterSprite3(private val image: Bitmap, dy0: Float, private val y: Int
             if(position.bottom > py && py > position.top) {
                 Log.d("TAG", "GOLD")
                 clicked = true
-                note = invisible
+                playerY += 500
+                position.top += 500
+                position.bottom += 500
                 return true
             }
         }

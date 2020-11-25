@@ -17,7 +17,6 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
         gameViewModel = model
     }
 
-    private var tick = Random.nextInt(0,200)
     override fun run() {
         var startTime = 0L
         val targetTime = 1000L / targetFPS

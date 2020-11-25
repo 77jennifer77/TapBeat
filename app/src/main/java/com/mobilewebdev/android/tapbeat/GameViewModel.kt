@@ -16,7 +16,7 @@ class GameViewModel: ViewModel() {
     private var score = 0
     private var streak = 0
     private lateinit var note: Bitmap
-    private lateinit var blackCircle: Bitmap
+    private var radius = 0f
 
 
     private val sprites = mutableListOf<Sprite>()
@@ -30,30 +30,29 @@ class GameViewModel: ViewModel() {
             sprites.add(VectorSprite(this))
 
             // Creating Notes
-            blackCircle = BitmapFactory.decodeResource(resources, R.drawable.blackcircle)
-
             note = BitmapFactory.decodeResource(resources, R.drawable.purplenote)
             for(x in 1..3) {
-                var characterSprite = CharacterSprite(note, 5.0f, 1200*x, blackCircle)
+                var characterSprite = CharacterSprite(note, 5.0f, 1200*x)
                 sprites.add(characterSprite)
                 updatables.add(characterSprite)
                 actionItems.add(characterSprite)
             }
             note = BitmapFactory.decodeResource(resources, R.drawable.bluenote)
             for(x in 1..3) {
-                var characterSprite = CharacterSprite2(note, 5.0f, 600*x, blackCircle)
+                var characterSprite = CharacterSprite2(note, 5.0f, 600*x)
                 sprites.add(characterSprite)
                 updatables.add(characterSprite)
                 actionItems.add(characterSprite)
             }
             note = BitmapFactory.decodeResource(resources, R.drawable.goldnote)
             for(x in 1..3) {
-                var characterSprite = CharacterSprite3(note, 5.0f, 800*x, blackCircle)
+                var characterSprite = CharacterSprite3(note, 5.0f, 800*x)
                 sprites.add(characterSprite)
                 updatables.add(characterSprite)
                 actionItems.add(characterSprite)
             }
 
+            radius = note.width.toFloat()/4
             loaded = true
         }
     }
@@ -65,7 +64,6 @@ class GameViewModel: ViewModel() {
                 any = true
                 streak += 1
                 score += 100
-
             }
         }
         return any
@@ -108,9 +106,9 @@ class GameViewModel: ViewModel() {
         }
         canvas.drawText("Score: $score", 6*screenWidth/10, 75f, paint)
         canvas.drawText("Streak: $streak", screenWidth/10, 75f, paint)
-        canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.93f, note.width.toFloat()/4, targetCirclePaint_purple)
-        canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.93f,note.width.toFloat()/4, targetCirclePaint_blue)
-        canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.93f,note.width.toFloat()/4, targetCirclePaint_gold)
+        canvas.drawCircle( screenWidth * 0.175f,screenHeight*0.93f, radius, targetCirclePaint_purple)
+        canvas.drawCircle( screenWidth * 0.475f ,screenHeight*0.93f,radius, targetCirclePaint_blue)
+        canvas.drawCircle( screenWidth * 0.775f ,screenHeight*0.93f,radius, targetCirclePaint_gold)
     }
 
     fun update() {
