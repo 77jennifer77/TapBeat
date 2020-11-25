@@ -66,10 +66,11 @@ class GameViewModel: ViewModel() {
                 score += 100
             }
         }
-        if(streak % 5 == 0) {
-            var temp = StreakSprite(screenWidth / 3, screenHeight / 3, streak)
-            sprites.add(temp)
-            updatables.add(temp)
+        // TODO: INITIALIZE STREAK SPRITE IN LOAD AND DRAW THE SINGULAR SPRITE WHEN NECESSARY
+        if(streak % 15 == 0) {
+            val streaking = StreakSprite(screenWidth / 3, screenHeight / 3, streak)
+            sprites.add(streaking)
+            updatables.add(streaking)
             Log.d("TAG", "sprites: ${sprites.size}")
         }
         return any
