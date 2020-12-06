@@ -24,8 +24,6 @@ class Game : ComponentActivity() {
 
         val gameViewModel = ViewModelProvider(this).get(GameViewModel::class.java)
         gameViewModel.load(resources)
-//        requestWindowFeature(setContentView(GameView(this).attachViewModel(gameViewModel)))
-//        startActivity(Intent(this, GameViewModel::class.java))
         setContentView(GameView(this).attachViewModel(gameViewModel))
 
         player = MediaPlayer.create(this, R.raw.song)
