@@ -14,6 +14,7 @@ class SoundPlayer(context: Context) {
 
     companion object {
         var hitNoteId = -1
+        var missNoteId = -1
     }
 
     init {
@@ -23,8 +24,11 @@ class SoundPlayer(context: Context) {
             var descriptor: AssetFileDescriptor
 
             // Load our fx in memory ready for use
-            descriptor = assetManager.openFd("hitNote.ogg")
+            descriptor = assetManager.openFd("hit.mp3")
             hitNoteId = soundPool.load(descriptor, 0)
+
+            descriptor = assetManager.openFd("miss.mp3")
+            missNoteId = soundPool.load(descriptor, 0)
 
         } catch (e: IOException) {
             // Print an error message to the console

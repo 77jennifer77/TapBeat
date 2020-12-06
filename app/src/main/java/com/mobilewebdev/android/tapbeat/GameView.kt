@@ -1,6 +1,8 @@
 package com.mobilewebdev.android.tapbeat
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Picture
@@ -13,6 +15,7 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
     private val gameThread: GameThread
     private lateinit var gameViewModel: GameViewModel
     private val soundPlayer = SoundPlayer(context)
+    private val screenHeight = Resources.getSystem().displayMetrics.heightPixels.toFloat()
 
     init {
         holder.addCallback(this)
@@ -56,13 +59,19 @@ class GameView(context: Context): SurfaceView(context), SurfaceHolder.Callback {
             if(any == true){
                 soundPlayer.playSound(SoundPlayer.hitNoteId)
             }
+            else {
+                soundPlayer.playSound(SoundPlayer.missNoteId)
+            }
         }
         return any
     }
 
     override fun draw(canvas: Canvas) {
+        var backing = BitmapFactory.decodeResource(resources, R.drawable.background)
         super.draw(canvas)
         canvas.drawColor(Color.BLACK)
+        canvas.drawBitmap(backing, 0f, screenHeight/5, null)
         gameViewModel.draw(canvas)
+
     }
 }

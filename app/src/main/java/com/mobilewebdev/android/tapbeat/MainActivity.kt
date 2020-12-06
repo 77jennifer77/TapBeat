@@ -12,6 +12,7 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var player: MediaPlayer
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -1,5 +1,6 @@
 package com.mobilewebdev.android.tapbeat
 
+import android.content.Context.AUDIO_SERVICE
 import android.content.res.Resources
 import android.graphics.*
 import android.util.Log

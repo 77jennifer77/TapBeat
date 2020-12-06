@@ -13,6 +13,7 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
     private var targetFPS = 60L
     private lateinit var gameViewModel: GameViewModel
 
+
     fun attachViewModel(model: GameViewModel) {
         gameViewModel = model
     }
