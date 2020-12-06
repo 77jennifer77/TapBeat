@@ -10,9 +10,9 @@ class VectorSprite(private val gameViewModel: GameViewModel): Sprite {
     private val paint3 = Paint()
 
     init {
-        paint1.color = Color.rgb(200,0, 0)
-        paint2.color = Color.rgb(0,200, 0)
-        paint3.color = Color.rgb(0,0, 200)
+        paint1.color = Color.rgb(255,255, 255)
+        paint2.color = Color.rgb(173,216, 230)
+        paint3.color = Color.rgb(192,192, 192)
     }
 
     override fun draw(canvas: Canvas) {

@@ -16,9 +16,9 @@ class StreakSprite(private var x: Float, private var y: Float, private val strea
 
     override fun draw(canvas: Canvas) {
         if(drawing) {
-            paint.color = Color.argb(phase, 255, 0, 0)
+            paint.color = Color.argb(phase, 255, 100, 255)
             paint.textSize = 70f
-            canvas.drawText("STREAK :)", x, y, paint)
+            canvas.drawText("Streak", x, y, paint)
         }
     }
 
