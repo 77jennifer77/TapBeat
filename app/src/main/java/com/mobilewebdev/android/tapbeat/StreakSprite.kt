@@ -18,7 +18,7 @@ class StreakSprite(private var x: Float, private var y: Float, private val strea
         if(drawing) {
             paint.color = Color.argb(phase, 255, 100, 255)
             paint.textSize = 70f
-            canvas.drawText("Streak", x, y, paint)
+            canvas.drawText(streak.toString() + " Streak!", x, y, paint)
         }
     }
 
