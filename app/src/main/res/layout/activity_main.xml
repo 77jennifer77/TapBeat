@@ -8,15 +8,13 @@
     android:background="@drawable/splash_background">
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/title"
         android:layout_width="391dp"
         android:layout_height="123dp"
         android:layout_marginStart="6dp"
         android:layout_marginTop="108dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="365dp"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,24 +22,35 @@
 
         <ImageView
             android:id="@+id/menu_icon"
-            android:layout_width="106dp"
-            android:layout_height="98dp"
+            android:layout_width="94dp"
+            android:layout_height="94dp"
+            android:layout_marginStart="10dp"
             android:background="@drawable/round_button"
-            android:src="@android:drawable/ic_menu_compass" />
+            android:src="@android:drawable/ic_menu_compass"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/app_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.482" />
 
         <TextView
             android:id="@+id/app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif-black"
+            android:layout_width="273dp"
+            android:layout_height="74dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/audiowide"
             android:lineSpacingExtra="8sp"
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
-            android:textSize="55sp" />
-    </LinearLayout>
+            android:textSize="55sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/menu_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/play_button"
