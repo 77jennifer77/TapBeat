@@ -15,7 +15,7 @@
                 android:centerColor="#00ACFF"
                 android:endColor="#C952FF"
 
-                android:angle="30" />
+                android:angle="45" />
         </shape>
     </item>
 </selector>
