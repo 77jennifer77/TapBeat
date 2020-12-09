@@ -30,6 +30,10 @@ class Game : ComponentActivity() {
 
         player = MediaPlayer.create(this, R.raw.song)
         player.setLooping(false);
+        player.setOnCompletionListener {
+            GameThread.running = false
+            setContentView(R.layout.activity_main)
+        }
         player.start();
     }
 
@@ -45,6 +49,7 @@ class Game : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        setContentView(GameView(this).attachViewModel(gameViewModel))
         player.start()
     }
 

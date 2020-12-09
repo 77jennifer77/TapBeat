@@ -9,7 +9,6 @@ import kotlin.random.Random
 
 class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView: GameView): Thread() {
     private val screenHeight = Resources.getSystem().displayMetrics.heightPixels.toFloat()
-    private var running = false
     private var targetFPS = 60L
     private lateinit var gameViewModel: GameViewModel
 
@@ -53,8 +52,10 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
         }
     }
 
+
+
     fun setRunning(isRunning: Boolean) {
-        this.running = isRunning
+        running = isRunning
     }
 
     fun doClick(x: Int, y: Int): Boolean {
@@ -69,5 +70,9 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
 
     fun updateGame() {
         gameViewModel.update()
+    }
+
+    companion object {
+        public var running = false;
     }
 }
